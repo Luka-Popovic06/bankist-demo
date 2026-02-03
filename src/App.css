@@ -18,7 +18,7 @@ nav p {
   font-size: 1.2rem;
   font-weight: 500;
 }
-.inp-box {
+.form-box {
   display: flex;
   gap: 20px;
   align-items: center;
@@ -32,4 +32,68 @@ nav input {
 nav input:focus {
   outline-style: solid;
   outline-color: rgb(184, 184, 184);
+}
+.form-box button {
+  border: none;
+  background: none;
+}
+.icon-1 {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+main {
+  margin-top: 50px;
+  position: relative;
+}
+.main-container {
+  background-color: rgba(0, 208, 255, 0.522);
+  width: 40%;
+  padding: 70px 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-radius: 1rem;
+  position: absolute;
+  top: 0;
+  left: 17rem;
+}
+main div {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+}
+.p {
+  font-size: 2rem;
+}
+.current-balance {
+  font-size: 3rem;
+  color: #444;
+}
+.incomes {
+  font-size: 3rem;
+  color: #66c873;
+}
+.expenses {
+  font-size: 3rem;
+  color: #f5465d;
+}
+.main-box {
+  display: flex;
+  gap: 100px;
+}
+.btn-logout {
+  padding: 50px;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 70px;
+  right: 11rem;
+  transition: 0.4s;
+}
+.btn-logout:hover {
+  background-color: rgba(198, 198, 198, 0.826);
+  transition: 0.4s;
 }
