@@ -1,19 +1,24 @@
-const Transactions = ({ reset }) => {
+const Transactions = ({
+  reset,
+  currentBalance,
+  totalIncomes,
+  totalExpenses,
+}) => {
   return (
     <>
       <div className="main-container" type={"button"}>
         <div>
           <p className="p">Current balance</p>
-          <p className="current-balance">11,234$</p>
+          <p className="current-balance">{currentBalance}$</p>
         </div>
         <div className="main-box">
           <div>
             <p className="p">IN</p>
-            <p className="incomes">1,345$</p>
+            <p className="incomes">{totalIncomes}$</p>
           </div>
           <div>
             <p className="p">OUT</p>
-            <p className="expenses">5,788$</p>
+            <p className="expenses">{totalExpenses}$</p>
           </div>
         </div>
       </div>
