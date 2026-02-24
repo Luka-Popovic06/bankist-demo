@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
-import Transactions from "./Transaction.jsx";
 import { accounts } from "./data.js";
 import "./App.css";
+import { Outlet, useNavigate } from "react-router-dom";
+import userContex from "./UserContext.jsx";
 
-function App() {
+const Root = () => {
   const [loginData, setLoginData] = useState({
     pin: "",
     username: "",
   });
   const [account, setAccount] = useState("");
+
   const totalIncomes = account?.movements?.reduce(
     (sum, currentValue) => (currentValue > 0 ? sum + currentValue : sum),
     0,
@@ -18,33 +20,44 @@ function App() {
     0,
   );
   const currentBalance = totalIncomes + totalExpenses;
-  console.log(account);
+
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const foundAccount = accounts.find(
+      (acc) =>
+        acc.username === loginData.username &&
+        acc.pin === Number(loginData.pin),
+    );
+
+    if (foundAccount) {
+      setAccount(foundAccount);
+      navigate("/transactions");
+    } else {
+      setAccount("");
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    if (!account) navigate("/");
+  }, []);
+
   return (
     <>
       <nav>
         <div>
-          {
-            //mora svitch da se napravi
-          }
-          <p>Log in to get started</p>
-          <p>Good Day, {account?.owner?.firstName}!</p>
+          {account?.owner?.firstName ? (
+            <p>Good Day, {account?.owner?.firstName}!</p>
+          ) : (
+            <p>Log in to get started</p>
+          )}
         </div>
         <div>
           <img src="logo.png" alt="logo" />
         </div>
-        <form
-          className="form-box"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setAccount(
-              accounts?.find(
-                (acc) =>
-                  acc.username === loginData.username &&
-                  acc.pin === Number(loginData.pin),
-              ),
-            );
-          }}
-        >
+        <form className="form-box" onSubmit={handleSubmit}>
           <input
             type="text"
             name="text-inp"
@@ -92,18 +105,23 @@ function App() {
         </form>
       </nav>
       <main>
-        <Transactions
-          currentBalance={currentBalance}
-          totalExpenses={totalExpenses}
-          totalIncomes={totalIncomes}
-          reset={() => {
-            setAccount("");
-            setLoginData({ pin: "", username: "" });
+        <userContex.Provider
+          value={{
+            account,
+            currentBalance,
+            totalIncomes,
+            totalExpenses,
+            reset: () => {
+              setAccount("");
+              setLoginData({ pin: "", username: "" });
+            },
           }}
-        />
+        >
+          <Outlet />
+        </userContex.Provider>
       </main>
     </>
   );
-}
+};
 
-export default App;
+export default Root;

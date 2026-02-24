@@ -1,12 +1,14 @@
-const Transactions = ({
-  reset,
-  currentBalance,
-  totalIncomes,
-  totalExpenses,
-}) => {
+import userContex from "./UserContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Transactions = ({}) => {
+  const { reset, currentBalance, totalIncomes, totalExpenses, account } =
+    useContext(userContex);
+  const navigate = useNavigate();
   return (
     <>
-      <div className="main-container" type={"button"}>
+      <div className="main-container">
         <div>
           <p className="p">Current balance</p>
           <p className="current-balance">{currentBalance}$</p>
@@ -22,7 +24,13 @@ const Transactions = ({
           </div>
         </div>
       </div>
-      <button className="btn-logout" onClick={reset}>
+      <button
+        className="btn-logout"
+        onClick={() => {
+          reset();
+          navigate("/");
+        }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

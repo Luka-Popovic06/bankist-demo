@@ -97,3 +97,10 @@ main div {
   background-color: rgba(198, 198, 198, 0.826);
   transition: 0.4s;
 }
+.not-found-div {
+  font-size: 3rem;
+  font-weight: 600;
+  position: absolute;
+  top: 45%;
+  left: 42%;
+}
